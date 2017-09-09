@@ -1,0 +1,27 @@
+<div>
+  <% if logged_in? %>
+    <a href="/restaurants/new">+ add a new restaurant</a>
+  <% end %>
+</div>
+
+<div id="all-restaurant-container">
+  <% @restaurants.each do |restaurant| %>
+    <div class="indiv-restaurant-boxes">
+      <div class="resta-name-link">
+        <a href="/restaurants/<%= restaurant.id %>"><%= restaurant.name %></a>
+      </div>
+      <div>
+        <%= restaurant.city_state %>
+      </div>
+      <% if current_user == restaurant.creator %>
+        <a href="/restaurants/<%= restaurant.id %>/edit">edit</a>
+
+        <form class="del-restaurant-form" action="/restaurants/<%= restaurant.id %>" method="post">
+          <input type="hidden" name="_method" value="delete" />
+          <input class="delete-form-button" type="submit" value="delete" />
+        </form>
+
+      <% end %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,14 @@
+<h2 class="page-title">Edit Restaurant Details</h2>
+
+<div>
+  <%= erb :'_errors' %>
+
+  <form action="/restaurants" method="post">
+
+    <%= erb :'restaurants/_form_fields' %>
+
+    <div>
+      <input type="submit" value="Save Restaurant">
+    </div>
+  </form>
+</div>

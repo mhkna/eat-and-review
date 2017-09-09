@@ -1,0 +1,15 @@
+<h2 class="page-title">Edit Restaurant Details</h2>
+
+<div>
+  <%= erb :'_errors' %>
+
+  <form action="/restaurants/<%= @restaurant.id %>" method="post">
+    <input name="_method" type="hidden" value="put">
+
+    <%= erb :'restaurants/_form_fields' %>
+
+    <div>
+      <input type="submit" value="Update Restaurant">
+    </div>
+  </form>
+</div>

@@ -1,0 +1,64 @@
+
+<section class="resta-show-holder">
+  <h2 class="page-title"><%= @restaurant.name %></h2>
+  <div class="resta-info-all">
+    <div>
+      <p>
+        <label for="address">Address:</label>
+        <%= @restaurant.full_address %>
+      </p>
+      <p>
+        <label for="cuisine">Cuisine:</label>
+        <%= @restaurant.cuisine %>
+      </p>
+      <p>
+        <label for="added_by">Added by:</label>
+        <%= @restaurant.creator.username %>
+      </p>
+    </div>
+    <div class="avg-review-section">
+      <h3>Reviews</h3>
+      <% if @restaurant.reviews.any? %>
+        <p>Average rating: <%= @restaurant.try(:avg_rating) unless @errors %>
+      <% else %>
+        <p>Not yet reviewed.</p>
+      <% end %>
+      <div class="review-desc-container">
+        <% @restaurant.reviews.each do |review| %>
+          <div class="resta-reviews">
+            <% if review.persisted? %>
+              <p>
+                <%= review.description %>
+              </p>
+              <p>
+                - <%= review.author.username %>
+              </p>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="review-container">
+    <% if @restaurant.creator != current_user %>
+
+      <h3>Leave a Review</h3>
+
+      <% if @recent %>
+        <%= @recent %>
+      <% elsif logged_in? && @restaurant.authors.include?(current_user) %>
+        <p>You already left a review.</p>
+      <% elsif logged_in? %>
+        <%= erb :'reviews/new' %>
+      <% else %>
+        <p>You must be logged in to leave a review.</p>
+        <p><a href="/sessions/new">login</a></p>
+      <% end %>
+
+    <% end %>
+  </div>
+</section>
+
+
+
